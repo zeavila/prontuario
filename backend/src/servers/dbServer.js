@@ -1,10 +1,14 @@
 const mysql = require("mysql");
 const dbConfig = require("../appConfig").get("mysql");
 
+/**
+ * Create a Connection with Database
+ */
 const getConnection = () => {
-  return new Promise((pResolve, pReject) => {
+  return new Promise((pResolve, _pReject) => {
     return pResolve(
-      mysql.createConnection({
+      mysql.createPool({
+        connectionLimit: 10,
         host: dbConfig.host,
         user: dbConfig.user,
         password: dbConfig.password,
@@ -14,8 +18,4 @@ const getConnection = () => {
   });
 };
 
-const closeConnection = pCN => {
-  pCN.commit();
-};
-
-module.exports = { getConnection, closeConnection };
+module.exports = { getConnection };
