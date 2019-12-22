@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": 3000,
+    "timeout": 30000
+  },
+  "mysql": {
+    "host": "localhost",
+    "user": "prontmed",
+    "password": "Teste1234",
+    "database": "prontmed"
+  }
+}
