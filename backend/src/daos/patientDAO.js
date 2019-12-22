@@ -46,6 +46,7 @@ const create = pDataObject => {
     ];
     return dbServer.getConnection().then(pCN => {
       return pCN.query(xSQL, xValue, (pError, pResult) => {
+        pCN.end();
         if (pError) {
           return pReject(pError);
         } else {
@@ -80,6 +81,7 @@ const update = (pDataObject, pConditions) => {
         xSQL += ` height = ${xMerged.height}, weight = ${xMerged.weight}`;
         xSQL += ` WHERE patient_id = ${pConditions.patient_id}`;
         return pCN.query(xSQL, (pError, pResult) => {
+          pCN.end();
           if (pError) {
             return pReject(pError);
           } else {
@@ -97,17 +99,24 @@ const update = (pDataObject, pConditions) => {
  */
 const remove = pConditions => {
   return new Promise((pResolve, pReject) => {
-    const xSQL = "DELETE FROM patient WHERE patient_id = ?";
-    return dbServer.getConnection().then(pCN => {
-      return pCN.query(xSQL, pConditions.patient_id, (pError, pResult) => {
-        pCN.end();
-        if (pError) {
-          return pReject(pError);
-        } else {
-          return pResolve({ message: "Patient removed." });
+    return read(pConditions)
+      .then(rPatient => {
+        if (!rPatient || !rPatient[0]) {
+          return pReject({ message: "Patient not found" });
         }
+        return dbServer.getConnection();
+      })
+      .then(pCN => {
+        const xSQL = "DELETE FROM patient WHERE patient_id = ?";
+        return pCN.query(xSQL, pConditions.patient_id, (pError, pResult) => {
+          pCN.end();
+          if (pError) {
+            return pReject(pError);
+          } else {
+            return pResolve({ message: "Patient removed." });
+          }
+        });
       });
-    });
   });
 };
 
