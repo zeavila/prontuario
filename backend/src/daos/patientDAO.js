@@ -13,6 +13,7 @@ const read = (pConditions = null) => {
       xSQL += ` WHERE patient_id = ${pConditions.patient_id}`;
     }
     return dbServer.getConnection().then(pCN => {
+      //Execute select query
       return pCN.query(xSQL, (pError, pResult) => {
         pCN.end();
         if (pError) {
@@ -45,6 +46,7 @@ const create = pDataObject => {
       ]
     ];
     return dbServer.getConnection().then(pCN => {
+      //Execute insert query
       return pCN.query(xSQL, xValue, (pError, pResult) => {
         pCN.end();
         if (pError) {
@@ -65,27 +67,36 @@ const create = pDataObject => {
  */
 const update = (pDataObject, pConditions) => {
   return new Promise((pResolve, pReject) => {
+    //Read actual Patient
     return read(pConditions)
       .then(rPatient => {
+        //if Patient not found
         if (!rPatient || !rPatient[0]) {
           return pReject({ message: "Patient not found" });
         }
         return Promise.all([dbServer.getConnection(), rPatient[0]]);
       })
       .then(([pCN, pPatient]) => {
-        const xMerged = { ...pPatient, ...pDataObject };
+        //Merge fields of patient
+        const xMerged = {
+          ...pPatient,
+          ...pDataObject
+        };
         const xBirthDate = moment(xMerged.birth_date).format("YYYY-MM-DD");
         let xSQL = "UPDATE patient ";
         xSQL += ` SET name = '${xMerged.name}', telephone = '${xMerged.telephone}', `;
         xSQL += ` birth_date = '${xBirthDate}', gender = '${xMerged.gender}', `;
         xSQL += ` height = ${xMerged.height}, weight = ${xMerged.weight}`;
         xSQL += ` WHERE patient_id = ${pConditions.patient_id}`;
+        //Execute update query
         return pCN.query(xSQL, (pError, pResult) => {
           pCN.end();
           if (pError) {
             return pReject(pError);
           } else {
-            return pResolve({ message: "Successsfully Updated Patient" });
+            return pResolve({
+              message: "Successsfully Updated Patient"
+            });
           }
         });
       });
@@ -99,14 +110,17 @@ const update = (pDataObject, pConditions) => {
  */
 const remove = pConditions => {
   return new Promise((pResolve, pReject) => {
+    //Read Patient
     return read(pConditions)
       .then(rPatient => {
+        //if Patient not found
         if (!rPatient || !rPatient[0]) {
           return pReject({ message: "Patient not found" });
         }
         return dbServer.getConnection();
       })
       .then(pCN => {
+        //Execute delete query
         const xSQL = "DELETE FROM patient WHERE patient_id = ?";
         return pCN.query(xSQL, pConditions.patient_id, (pError, pResult) => {
           pCN.end();
