@@ -1,11 +1,19 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const dao = require("../daos/patientDAO");
 
 /**
  * Read One Patient by ID
  */
 router.get("/:id", (pReq, pRes) => {
+  //Route Validation
+  if (!pReq.params.id) {
+    return pRes.status(400).send({
+      data: {
+        message: "ID of Patient is required.",
+        status: 400
+      }
+    });
+  }
   return dao
     .read({ patient_id: pReq.params.id })
     .then(rResult => {
@@ -46,6 +54,15 @@ router.get("/", (_pReq, pRes) => {
  * Create one Patient
  */
 router.post("/", (pReq, pRes) => {
+  //Route Validation
+  if (!pReq.body) {
+    return pRes.status(400).send({
+      data: {
+        message: "Data of Patient is required.",
+        status: 400
+      }
+    });
+  }
   return dao
     .create(pReq.body)
     .then(rResult => {
@@ -66,8 +83,19 @@ router.post("/", (pReq, pRes) => {
  * Update one Patient
  */
 router.put("/:id", (pReq, pRes) => {
+  //Route Validation
+  if (!pReq.params.id) {
+    return pRes.status(400).send({
+      data: {
+        message: "ID of Patient is required.",
+        status: 400
+      }
+    });
+  }
   return dao
-    .update(pReq.body, { patient_id: pReq.params.id })
+    .update(pReq.body, {
+      patient_id: pReq.params.id
+    })
     .then(rResult => {
       return pRes.send({ data: rResult });
     })
@@ -86,8 +114,19 @@ router.put("/:id", (pReq, pRes) => {
  * Delete one patient by ID
  */
 router.delete("/:id", (pReq, pRes) => {
+  //Route Validation
+  if (!pReq.params.id) {
+    return pRes.status(400).send({
+      data: {
+        message: "ID of Patient is required.",
+        status: 400
+      }
+    });
+  }
   return dao
-    .remove({ patient_id: pReq.params.id })
+    .remove({
+      patient_id: pReq.params.id
+    })
     .then(rResult => {
       return pRes.send({ data: rResult });
     })
