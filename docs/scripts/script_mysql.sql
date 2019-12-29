@@ -8,7 +8,7 @@ USE `prontmed`;
 CREATE TABLE `patient` (
   `patient_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `telephone` varchar(11) NOT NULL,
+  `telephone` varchar(15) NOT NULL,
   `birth_date` date NOT NULL,
   `gender` varchar(1) NOT NULL COMMENT 'M = MALE OR F = FEMALE',
   `height` decimal(10,0) DEFAULT NULL,
