@@ -66,7 +66,7 @@ router.post("/", (pReq, pRes) => {
   return dao
     .create(pReq.body)
     .then(rResult => {
-      return pRes.send({ data: rResult });
+      return pRes.send(rResult);
     })
     .catch(rErr => {
       console.log(rErr);
