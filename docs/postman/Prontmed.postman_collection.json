@@ -15,12 +15,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patients",
+							"raw": "http://localhost:3001/api/v1/patients",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -52,12 +52,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patients",
+							"raw": "http://localhost:3001/api/v1/patients",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -73,12 +73,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patients/1",
+							"raw": "http://localhost:3001/api/v1/patients/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -111,12 +111,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patients/2",
+							"raw": "http://localhost:3001/api/v1/patients/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -133,12 +133,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/patients/3",
+							"raw": "http://localhost:3001/api/v1/patients/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -161,12 +161,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/schedules",
+							"raw": "http://localhost:3001/api/v1/schedules",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -198,12 +198,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/schedules",
+							"raw": "http://localhost:3001/api/v1/schedules",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -235,12 +235,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/schedules/1/2019-12-31",
+							"raw": "http://localhost:3001/api/v1/schedules/1/2019-12-31",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -258,12 +258,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/schedules/1/2019-12-29",
+							"raw": "http://localhost:3001/api/v1/schedules/1/2019-12-29",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -287,12 +287,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/v1/notes/1",
+							"raw": "http://localhost:3001/api/v1/notes/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -325,12 +325,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/v1/notes",
+							"raw": "http://localhost:3001/api/v1/notes",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "3001",
 							"path": [
 								"api",
 								"v1",
@@ -349,12 +349,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/status",
+					"raw": "http://localhost:3001/api/v1/status",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
