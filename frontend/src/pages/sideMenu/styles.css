@@ -1,0 +1,17 @@
+#side-menu {
+  height: 100%;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 0 10px;
+  border: #000 solid 1px;
+  background: darkgray;
+}
+
+#side-menu ul {
+  list-style-type: none;
+}
+
+#side-menu a {
+  font-size: large;
+}
