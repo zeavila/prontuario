@@ -4,9 +4,9 @@ const dao = require("../daos/patientScheduleDAO");
 /**
  * List of All Schedules
  */
-router.get("/", (_pReq, pRes) => {
+router.get("/:id", (pReq, pRes) => {
   return dao
-    .read()
+    .read({ patient_id: pReq.params.id })
     .then(rResult => {
       return pRes.send({ data: rResult });
     })
