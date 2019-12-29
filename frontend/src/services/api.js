@@ -100,7 +100,22 @@ const api = {
   /**
    * List of All Schedules of one patient
    */
-  scheduleList: pPatientId => {
+  scheduleList: () => {
+    return new Promise((pResolve, pReject) => {
+      return BaseAPI.get(`schedules`)
+        .then(rResult => {
+          return pResolve(rResult.data);
+        })
+        .catch(rErr => {
+          return pReject(rErr);
+        });
+    });
+  },
+
+  /**
+   * List of All Schedules of one patient
+   */
+  scheduleListOfPatient: pPatientId => {
     return new Promise((pResolve, pReject) => {
       return BaseAPI.get(`schedules/${pPatientId}`)
         .then(rResult => {
@@ -149,6 +164,7 @@ const api = {
    * Delete one schedule
    */
   scheduleDelete: pConditions => {
+    console.log(pConditions);
     return new Promise((pResolve, pReject) => {
       return BaseAPI.delete(
         `schedules/${pConditions.patient_id}/${pConditions.schedule_date}`
