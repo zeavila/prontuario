@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SideMenu from "../sideMenu";
 import Modal from "react-awesome-modal";
 import moment from "moment";
+import { MdSearch } from "react-icons/md";
 import api from "../../services/api";
 import "./styles.css";
 
@@ -11,23 +12,45 @@ export default class Patient extends Component {
     this.state = {
       visible: false,
       delete_visible: false,
+      note_visible: false,
       patient: {
         patient_id: this.props.match.params.id,
         name: "",
         birth_date: null,
         gender: "M",
-        telephone: ""
+        telephone: "",
+        height: null,
+        weight: null
+      },
+      notes: [],
+      note: {
+        patient_id: this.props.match.params.id,
+        schedule_date: null,
+        notes: ""
       }
     };
   }
 
   async componentDidMount() {
-    const xResponse = await api.patientRead(this.state.patient.patient_id);
-    if (xResponse.data && xResponse.data[0]) {
-      xResponse.data[0].birth_date = moment(
-        xResponse.data[0].birth_date
-      ).format("YYYY-MM-DD");
-      this.setState({ patient: xResponse.data[0] });
+    const xPatient = await api.patientRead(this.state.patient.patient_id);
+    if (xPatient.data && xPatient.data[0]) {
+      xPatient.data[0].birth_date = moment(xPatient.data[0].birth_date).format(
+        "YYYY-MM-DD"
+      );
+      this.setState({
+        patient: xPatient.data[0]
+      });
+      // console.log(this.state.patient);
+    }
+    const xNotes = await api.noteList(this.state.patient.patient_id);
+    if (xNotes.data) {
+      this.setState({ notes: xNotes.data });
+      // console.log(this.state.notes);
+    }
+    const xSchedules = await api.scheduleList(this.state.patient.patient_id);
+    if (xSchedules.data) {
+      this.setState({ schedules: xSchedules.data });
+      // console.log(this.state.schedules);
     }
   }
 
@@ -51,29 +74,6 @@ export default class Patient extends Component {
         // console.log(rResult);
         this.props.history.push(`/patients/${this.state.patient.patient_id}`);
         this.closeModal();
-      })
-      .catch(rErr => {
-        alert(`Erro: ${rErr}`);
-      });
-  };
-
-  openModalDelete() {
-    this.setState({
-      delete_visible: true
-    });
-  }
-
-  closeModalDelete() {
-    this.setState({
-      delete_visible: false
-    });
-  }
-  handleDelete = () => {
-    api
-      .patientDelete(this.state.patient.patient_id)
-      .then(_rResult => {
-        console.log(_rResult);
-        this.props.history.push("/");
       })
       .catch(rErr => {
         alert(`Erro: ${rErr}`);
@@ -112,6 +112,87 @@ export default class Patient extends Component {
       }
     });
   };
+  handleInputHeightChange = pEvent => {
+    this.setState({
+      patient: {
+        ...this.state.patient,
+        height: pEvent.target.value
+      }
+    });
+  };
+  handleInputWeightChange = pEvent => {
+    this.setState({
+      patient: {
+        ...this.state.patient,
+        weight: pEvent.target.value
+      }
+    });
+  };
+
+  // DELETE PATIENT
+  openModalDelete() {
+    this.setState({
+      delete_visible: true
+    });
+  }
+  closeModalDelete() {
+    this.setState({
+      delete_visible: false
+    });
+  }
+  handleDelete = () => {
+    api
+      .patientDelete(this.state.patient.patient_id)
+      .then(_rResult => {
+        console.log(_rResult);
+        this.props.history.push("/");
+      })
+      .catch(rErr => {
+        alert(`Erro: ${rErr}`);
+      });
+  };
+
+  // INSERT/UPDATE NOTE
+  openModalNote() {
+    this.setState({
+      note_visible: true
+    });
+  }
+  closeModalNote() {
+    this.setState({
+      note_visible: false
+    });
+  }
+  handleNote = () => {
+    console.log(this.state.note);
+    api
+      .noteCreate(this.state.note)
+      .then(_rResult => {
+        console.log(_rResult);
+        this.props.history.push("/patient/" + this.props.params.id);
+      })
+      .catch(rErr => {
+        alert(`Erro: ${rErr}`);
+      });
+  };
+  handleInputNotesChange = pEvent => {
+    this.setState({
+      note: {
+        ...this.state.note,
+        notes: pEvent.target.value
+      }
+    });
+  };
+  handleInputNoteScheduleChange = pEvent => {
+    this.setState({
+      note: {
+        ...this.state.note,
+        schedule_date: pEvent.target.value
+      }
+    });
+    console.log(pEvent.target.value);
+    console.log(this.state.note);
+  };
 
   render() {
     return (
@@ -119,7 +200,7 @@ export default class Patient extends Component {
         <Modal
           visible={this.state.visible}
           width="400"
-          height="300"
+          height="365"
           effect="fadeInDown"
           onClickAway={() => this.closeModal()}
         >
@@ -150,10 +231,24 @@ export default class Patient extends Component {
                   <option value="M">Masculino</option>
                 </select>
                 <input
-                  placeholder="(xx) xxxxx-xxxx"
+                  placeholder="Telefone: (xx) xxxxx-xxxx"
                   value={this.state.patient.telephone}
                   onChange={this.handleInputTelephoneChange}
                   type="tel"
+                />
+                <input
+                  placeholder="Altura"
+                  value={this.state.patient.height}
+                  onChange={this.handleInputHeightChange}
+                  type="number"
+                  min="0"
+                />
+                <input
+                  placeholder="Peso"
+                  value={this.state.patient.weight}
+                  onChange={this.handleInputWeightChange}
+                  type="number"
+                  min="0"
                 />
               </div>
               <div className="buttons">
@@ -163,7 +258,7 @@ export default class Patient extends Component {
                   className="cancel-button"
                   onClick={() => this.closeModal()}
                 >
-                  cancelar
+                  Cancelar
                 </button>
               </div>
             </form>
@@ -196,6 +291,57 @@ export default class Patient extends Component {
             </div>
           </div>
         </Modal>
+        <Modal
+          visible={this.state.note_visible}
+          width="400"
+          height="310"
+          effect="fadeInDown"
+          onClickAway={() => this.closeModalNote()}
+        >
+          <div className="note-modal">
+            <h1>Anotação do Atentimento</h1>
+            <div className="inputs">
+              <div className="note-schedule">
+                <span>Data da Consulta</span>
+                <select
+                  onChange={this.handleInputNoteScheduleChange}
+                  required="required"
+                >
+                  <option value="null">Selecione uma data</option>
+                  {this.state.schedules &&
+                    this.state.schedules.map(schedule => (
+                      <option
+                        value={moment(schedule.schedule_date).format(
+                          "YYYY-MM-DD"
+                        )}
+                      >
+                        {moment(schedule.schedule_date).format("DD/MM/YYYY")}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <textarea
+                placeholder="Anotações"
+                value={this.state.note.notes}
+                onChange={this.handleInputNotesChange}
+                required="required"
+                rows="10"
+              />
+            </div>
+            <div className="buttons">
+              <button type="button" onClick={() => this.handleNote()}>
+                Salvar
+              </button>
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={() => this.closeModalNote()}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </Modal>
         <SideMenu />
         <div className="page-content">
           <div className="content-header">
@@ -211,7 +357,43 @@ export default class Patient extends Component {
               Excluir Cadastro
             </button>
           </div>
-          <div className="content"></div>
+          <div className="content">
+            <div className="patient-data">
+              <div>
+                <span>
+                  Data de Nascimento:{" "}
+                  {moment(this.state.patient.birth_date).format("DD/MM/YYYY")}
+                </span>
+                <span>
+                  Sexo:{" "}
+                  {this.state.patient.gender === "F" ? "Feminino" : "Masculino"}
+                </span>
+                <span>Telefone: {this.state.patient.telephone}</span>
+              </div>
+              <div>
+                <span>Altura: {this.state.patient.height}</span>
+                <span>Peso: {this.state.patient.weight}</span>
+              </div>
+            </div>
+            <div className="patient-notes">
+              <button type="button" onClick={() => this.openModalNote()}>
+                Inserir Anotação
+              </button>
+              <table>
+                <tr>
+                  <th>Data da Consulta</th>
+                  <th>Atendimento</th>
+                </tr>
+                {this.state.notes &&
+                  this.state.notes.map(note => (
+                    <tr>
+                      <td>{moment(note.schedule_date).format("DD/MM/YYYY")}</td>
+                      <td>{note.notes}</td>
+                    </tr>
+                  ))}
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     );
