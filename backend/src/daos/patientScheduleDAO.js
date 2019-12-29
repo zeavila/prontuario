@@ -8,13 +8,16 @@ const moment = require("moment");
  */
 const read = (pConditions = null) => {
   return new Promise((pResolve, pReject) => {
-    let xSQL = "SELECT * FROM patient_schedule";
+    let xSQL =
+      "SELECT s.*, name " +
+      "  FROM patient_schedule s LEFT JOIN patient p " +
+      "     ON p.patient_id = s.patient_id";
     if (pConditions != null && pConditions.patient_id) {
       //For schedules of one patient
-      xSQL += ` WHERE patient_id = ${pConditions.patient_id}`;
+      xSQL += ` WHERE s.patient_id = ${pConditions.patient_id}`;
     }
     if (pConditions != null && pConditions.schedule_date) {
-      xSQL += ` AND schedule_date = '${pConditions.schedule_date}'`;
+      xSQL += ` AND s.schedule_date = '${pConditions.schedule_date}'`;
     }
     return dbServer.getConnection().then(pCN => {
       //Execute select query
