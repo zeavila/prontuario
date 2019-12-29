@@ -2,7 +2,27 @@ const router = require("express").Router();
 const dao = require("../daos/patientScheduleDAO");
 
 /**
- * List of All Schedules
+ * List of All Schedules of one patient
+ */
+router.get("/", (_pReq, pRes) => {
+  return dao
+    .read()
+    .then(rResult => {
+      return pRes.send({ data: rResult });
+    })
+    .catch(rErr => {
+      console.log(rErr);
+      return pRes.status(400).send({
+        data: {
+          message: rErr.message,
+          status: 400
+        }
+      });
+    });
+});
+
+/**
+ * List of All Schedules of one patient
  */
 router.get("/:id", (pReq, pRes) => {
   return dao
