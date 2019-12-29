@@ -31,6 +31,18 @@ export default class Patient extends Component {
   }
 
   async componentDidMount() {
+    this.setPatient();
+    this.setNoteList();
+    const xSchedules = await api.scheduleListOfPatient(
+      this.state.patient.patient_id
+    );
+    if (xSchedules.data) {
+      this.setState({ schedules: xSchedules.data });
+      // console.log(this.state.schedules);
+    }
+  }
+
+  setPatient = async () => {
     const xPatient = await api.patientRead(this.state.patient.patient_id);
     if (xPatient.data && xPatient.data[0]) {
       xPatient.data[0].birth_date = moment(xPatient.data[0].birth_date).format(
@@ -41,17 +53,15 @@ export default class Patient extends Component {
       });
       // console.log(this.state.patient);
     }
+  };
+
+  setNoteList = async () => {
     const xNotes = await api.noteList(this.state.patient.patient_id);
     if (xNotes.data) {
       this.setState({ notes: xNotes.data });
       // console.log(this.state.notes);
     }
-    const xSchedules = await api.scheduleList(this.state.patient.patient_id);
-    if (xSchedules.data) {
-      this.setState({ schedules: xSchedules.data });
-      // console.log(this.state.schedules);
-    }
-  }
+  };
 
   openModal() {
     this.setState({
@@ -63,6 +73,7 @@ export default class Patient extends Component {
     this.setState({
       visible: false
     });
+    this.setPatient();
   }
 
   handleSubmit = pEvent => {
@@ -143,7 +154,7 @@ export default class Patient extends Component {
     api
       .patientDelete(this.state.patient.patient_id)
       .then(_rResult => {
-        console.log(_rResult);
+        // console.log(_rResult);
         this.props.history.push("/");
       })
       .catch(rErr => {
@@ -159,16 +170,22 @@ export default class Patient extends Component {
   }
   closeModalNote() {
     this.setState({
-      note_visible: false
+      note_visible: false,
+      note: {
+        patient_id: this.props.match.params.id,
+        schedule_date: null,
+        notes: ""
+      }
     });
   }
   handleNote = () => {
-    console.log(this.state.note);
+    // console.log(this.state.note);
     api
       .noteCreate(this.state.note)
       .then(_rResult => {
-        console.log(_rResult);
-        this.props.history.push("/patient/" + this.props.params.id);
+        // console.log(_rResult);
+        this.setNoteList();
+        this.closeModalNote();
       })
       .catch(rErr => {
         alert(`Erro: ${rErr}`);
@@ -183,14 +200,30 @@ export default class Patient extends Component {
     });
   };
   handleInputNoteScheduleChange = pEvent => {
-    this.setState({
-      note: {
-        ...this.state.note,
-        schedule_date: pEvent.target.value
-      }
-    });
-    console.log(pEvent.target.value);
-    console.log(this.state.note);
+    const xScheduleDate = pEvent.target.value;
+    api
+      .noteRead({
+        patient_id: this.state.note.patient_id,
+        schedule_date: xScheduleDate
+      })
+      .then(rNote => {
+        // console.log(rNote);
+        if (rNote && rNote.data[0]) {
+          this.setState({
+            modalAction: "E",
+            note: rNote.data[0]
+          });
+        } else {
+          this.setState({
+            modalAction: "N",
+            note: {
+              patient_id: this.props.match.params.id,
+              schedule_date: xScheduleDate,
+              notes: ""
+            }
+          });
+        }
+      });
   };
 
   render() {
@@ -266,7 +299,7 @@ export default class Patient extends Component {
         <Modal
           visible={this.state.delete_visible}
           width="400"
-          height="300"
+          height="140"
           effect="fadeInDown"
           onClickAway={() => this.closeModalDelete()}
         >
@@ -325,10 +358,15 @@ export default class Patient extends Component {
                 onChange={this.handleInputNotesChange}
                 required="required"
                 rows="10"
+                disabled={this.state.modalAction === "E"}
               />
             </div>
             <div className="buttons">
-              <button type="button" onClick={() => this.handleNote()}>
+              <button
+                type="button"
+                onClick={() => this.handleNote()}
+                disabled={this.state.modalAction === "E"}
+              >
                 Salvar
               </button>
               <button
