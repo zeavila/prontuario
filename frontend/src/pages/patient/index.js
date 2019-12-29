@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import SideMenu from "../sideMenu";
 import Modal from "react-awesome-modal";
 import moment from "moment";
-import { MdSearch } from "react-icons/md";
 import api from "../../services/api";
 import "./styles.css";
 
