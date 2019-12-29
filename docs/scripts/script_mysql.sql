@@ -36,4 +36,9 @@ CREATE TABLE `note` (
   CONSTRAINT `fk_note_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient_schedule` (`patient_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
+-- TRIGGER BEFORE DELETE OF PATIENT
+CREATE TRIGGER `prontmed`.`patient_bd` BEFORE DELETE ON `patient` FOR EACH ROW
+BEGIN
+	DELETE FROM note WHERE patient_id = OLD.patient_id;
+    DELETE FROM patient_schedule WHERE patient_id = OLD.patient_id;
+END;
