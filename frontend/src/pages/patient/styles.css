@@ -1,4 +1,30 @@
-/* TABLE PATIENTS */
-.patient-content .content {
-  margin-top: 40px;
+/* CSS OF PATIENT PAGE */
+.page-content .content .patient-data {
+  display: flex;
+}
+
+.page-content .content .patient-data div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+}
+
+.page-content .content .patient-data div span {
+  height: 30px;
+  font-size: 16px;
+}
+
+.note-schedule {
+  width: 100%;
+}
+
+.note-schedule span {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.note-schedule select {
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
