@@ -207,7 +207,20 @@ const api = {
           return pReject(rErr);
         });
     });
+  },
+
+  noteRead: pConditions => {
+    return new Promise((pResolve, pReject) => {
+      return BaseAPI.get(
+        `notes/${pConditions.patient_id}/${pConditions.schedule_date}`
+      )
+        .then(rResult => {
+          return pResolve(rResult.data);
+        })
+        .catch(rErr => {
+          return pReject(rErr);
+        });
+    });
   }
 };
-
 export default api;
