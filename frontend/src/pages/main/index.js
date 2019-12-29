@@ -107,6 +107,7 @@ export default class Main extends Component {
   render() {
     return (
       <div className="page-container">
+        <SideMenu />
         <Modal
           visible={this.state.visible}
           width="400"
@@ -174,7 +175,6 @@ export default class Main extends Component {
             </form>
           </div>
         </Modal>
-        <SideMenu />
         <div className="page-content">
           <div className="content-header">
             <h1>Pacientes</h1>
