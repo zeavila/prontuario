@@ -159,7 +159,14 @@
 					"name": "Schedule - List",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3001/api/v1/schedules",
 							"protocol": "http",
@@ -171,6 +178,28 @@
 								"api",
 								"v1",
 								"schedules"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedule - List One Patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/v1/schedules/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"v1",
+								"schedules",
+								"1"
 							]
 						}
 					},
