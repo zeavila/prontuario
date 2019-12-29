@@ -12,6 +12,9 @@ const read = (pConditions = null) => {
     if (pConditions != null && pConditions.patient_id) {
       xSQL += ` WHERE patient_id = ${pConditions.patient_id}`;
     }
+    if (pConditions != null && pConditions.schedule_date) {
+      xSQL += ` AND schedule_date = '${pConditions.schedule_date}'`;
+    }
     return dbServer.getConnection().then(pCN => {
       //Execute select query
       return pCN.query(xSQL, (pError, pResult) => {
