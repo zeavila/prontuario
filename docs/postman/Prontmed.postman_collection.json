@@ -333,6 +333,29 @@
 					"response": []
 				},
 				{
+					"name": "Notes - Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/v1/notes/16/2019-12-30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"v1",
+								"notes",
+								"16",
+								"2019-12-30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Notes - Create",
 					"request": {
 						"method": "POST",
