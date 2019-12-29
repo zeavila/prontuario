@@ -14,9 +14,11 @@ export default class Main extends Component {
       patients: [],
       new_patient: {
         name: "",
-        birth_date: moment(),
-        gender: "M",
-        telephone: ""
+        birth_date: moment().format("YYYY-MM-DD"),
+        gender: "F",
+        telephone: "",
+        height: null,
+        weight: null
       }
     };
   }
@@ -85,6 +87,22 @@ export default class Main extends Component {
       }
     });
   };
+  handleInputHeightChange = pEvent => {
+    this.setState({
+      new_patient: {
+        ...this.state.new_patient,
+        height: pEvent.target.value
+      }
+    });
+  };
+  handleInputWeightChange = pEvent => {
+    this.setState({
+      new_patient: {
+        ...this.state.new_patient,
+        weight: pEvent.target.value
+      }
+    });
+  };
 
   render() {
     return (
@@ -92,7 +110,7 @@ export default class Main extends Component {
         <Modal
           visible={this.state.visible}
           width="400"
-          height="300"
+          height="365"
           effect="fadeInDown"
           onClickAway={() => this.closeModal()}
         >
@@ -123,10 +141,24 @@ export default class Main extends Component {
                   <option value="M">Masculino</option>
                 </select>
                 <input
-                  placeholder="(xx) xxxxx-xxxx"
+                  placeholder="Telefone: (xx) xxxxx-xxxx"
                   value={this.state.new_patient.telephone}
                   onChange={this.handleInputTelephoneChange}
                   type="tel"
+                />
+                <input
+                  placeholder="Altura"
+                  value={this.state.new_patient.height}
+                  onChange={this.handleInputHeightChange}
+                  type="number"
+                  min="0"
+                />
+                <input
+                  placeholder="Peso"
+                  value={this.state.new_patient.weight}
+                  onChange={this.handleInputWeightChange}
+                  type="number"
+                  min="0"
                 />
               </div>
               <div className="buttons">
@@ -136,7 +168,7 @@ export default class Main extends Component {
                   className="cancel-button"
                   onClick={() => this.closeModal()}
                 >
-                  cancelar
+                  Cancelar
                 </button>
               </div>
             </form>
@@ -164,7 +196,7 @@ export default class Main extends Component {
                   <tr>
                     <td>{patient.name}</td>
                     <td>{moment(patient.birth_date).format("DD/MM/YYYY")}</td>
-                    <td>{patient.gender === "M" ? "Masculino" : "Feminino"}</td>
+                    <td>{patient.gender === "F" ? "Feminino" : "Masculino"}</td>
                     <td>{patient.telephone}</td>
                     <td className="coloumns-actions">
                       <a href={"/patients/" + patient.patient_id}>
