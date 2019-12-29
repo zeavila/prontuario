@@ -52,7 +52,10 @@ const create = pDataObject => {
         if (pError) {
           return pReject(pError);
         } else {
-          return pResolve({ message: "Successsfully Created Patient" });
+          return pResolve({
+            data: pResult,
+            message: "Successsfully Created Patient"
+          });
         }
       });
     });
