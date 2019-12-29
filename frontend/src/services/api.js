@@ -98,11 +98,11 @@ const api = {
 
   //Schedules
   /**
-   * List of All Schedules
+   * List of All Schedules of one patient
    */
-  scheduleList: () => {
+  scheduleList: pPatientId => {
     return new Promise((pResolve, pReject) => {
-      return BaseAPI.get("schedules")
+      return BaseAPI.get(`schedules/${pPatientId}`)
         .then(rResult => {
           return pResolve(rResult.data);
         })
@@ -164,11 +164,11 @@ const api = {
 
   //Notes
   /**
-   * List of All Notes
+   * List of All Notes of one patient
    */
-  noteList: () => {
+  noteList: pPatientId => {
     return new Promise((pResolve, pReject) => {
-      return BaseAPI.get("notes")
+      return BaseAPI.get(`notes/${pPatientId}`)
         .then(rResult => {
           return pResolve(rResult.data);
         })
