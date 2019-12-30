@@ -14,8 +14,8 @@ System for medical records with patient records, appointment schedules and medic
   - [Frontend](#frontend)
 - [Backend Configuration](#backend-configuration)
 - [Running](#running)
-  - [Backend](#backend)
-  - [Frontend](#frontend)
+  - [Run Backend](#run-backend)
+  - [Run Frontend](#run-frontend)
 - [Built With](#built-with)
 - [Testing](#testing)
 - [Author](#author)
@@ -70,7 +70,7 @@ To configure Backend, simply edit the _src/appconfig.json_ file.
 
 ### Running
 
-#### Backend
+#### Run Backend
 
 - Enter in backend folder and run:
 
@@ -78,7 +78,7 @@ To configure Backend, simply edit the _src/appconfig.json_ file.
   cd backend && npm run start
   ```
 
-#### Frontend
+#### Run Frontend
 
 ##### Live version
 
