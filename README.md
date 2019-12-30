@@ -6,33 +6,52 @@ System for medical records with patient records, appointment schedules and medic
 
 - [Table Of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
   - [Database](#database)
   - [Backend](#backend)
   - [Frontend](#frontend)
-- [Configuration](#configuration)
-  - [AppConfig](#app-config)
+- [Backend Configuration](#backend-configuration)
+- [Running](#running)
+  - [Backend](#backend-running)
+  - [Frontend](#frontend-running)
+- [Built With](#built-with)
+- [Testing](#testing)
+- [Author](#author)
+- [License](#license)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-- Download and install the latest Node.js version
+- Download and install the latest Node.js and npm version
+
   - Linux System: sudo apt install nodejs
   - Windows and Mac: https://nodejs.org
 
+- Download and install MySQL Server
+  - Linux System: sudo apt install mysql
+  - Windows and Mac: https://dev.mysql.com/downloads/mysql/
+
 ### Installation
+
+- Clone the repository and check out the master branch: git clone https://github.com/zeavila/prontuario.git
+
+#### Database
+
+- Run 'script_mysql.sql' (founded in docs/script folder) to create database
 
 #### Backend
 
-- Clone the repository and check out the master branch: git clone https://github.com/zeavila/prontuario.git
 - Enter in backend folder and install:
 
 ```
 cd backend && npm i
 ```
+
+#### Frontend
 
 - Enter in frontend folder and install:
 
@@ -40,58 +59,56 @@ cd backend && npm i
 cd frontend && npm i
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### Backend Configuration
 
-## Running the tests
+To configure Backend, simply edit the _src/appconfig.json_ file.
 
-Explain how to run the automated tests for this system
+### Running
 
-### Break down into end to end tests
+#### Backend
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
+- Enter in backend folder and run:
 
 ```
-Give an example
+cd backend && npm run start
 ```
 
-## Deployment
+#### Frontend
 
-Add additional notes about how to deploy this on a live system
+##### Live version
 
-## Built With
+- Enter in frontend folder and run:
 
-- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-- [Maven](https://maven.apache.org/) - Dependency Management
-- [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+cd frontend && yarn start
+```
 
-## Contributing
+##### Build Version
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+- Enter in frontend folder and run:
 
-## Versioning
+```
+cd frontend && yarn build
+```
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+### Built With
 
-## Authors
+- [MySQL Community Edition](https://www.mysql.com/products/community/) - Database
+- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) - Client to database
+- [Node.JS](https://www.nodejs.org/) - JavaScript runtime built on Chrome's V8 JavaScript engine
+- [NPM](https://www.npmjs.com/) - Dependency Management
+- [Express](https://expressjs.com) - The Web framework used on Backend
+- [React](https://reactjs.org/) - The web framework used on Frontend
+- [Postman](https://www.getpostman.com/) - Api Client to Test Rest Services
 
-- **Billie Thompson** - _Initial work_ - [PurpleBooth](https://github.com/PurpleBooth)
+### Testing
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+To test Backend's services, use Postman or view API documentation in https://documenter.getpostman.com/view/5057547/SWLb9VQF?version=latest
 
-## License
+### Author
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+- **Alberto Ávila** - _Initial work_ - [zeavila](https://github.com/zeavila)
 
-## Acknowledgments
+### License
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+This project is Open Source and not licensed.
