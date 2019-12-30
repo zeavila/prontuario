@@ -43,23 +43,25 @@ Clone the repository and check out the master branch:
 git clone https://github.com/zeavila/prontuario.git
 ```
 
-- '''Database'''
+#### Database
 
 Run 'script_mysql.sql' (founded in docs/script folder) to create database
 
-- '''Backend'''
-  - Enter in backend folder and install:
+#### Backend
 
-```
-cd backend && npm i
-```
+- Enter in backend folder and install:
 
-- '''Frontend'''
-  - Enter in frontend folder and install:
+  ```
+  cd backend && npm i
+  ```
 
-```
-cd frontend && npm i
-```
+#### Frontend
+
+- Enter in frontend folder and install:
+
+  ```
+  cd frontend && npm i
+  ```
 
 ### Backend Configuration
 
@@ -71,9 +73,9 @@ To configure Backend, simply edit the _src/appconfig.json_ file.
 
 - Enter in backend folder and run:
 
-```
-cd backend && npm run start
-```
+  ```
+  cd backend && npm run start
+  ```
 
 #### Frontend
 
@@ -81,17 +83,17 @@ cd backend && npm run start
 
 - Enter in frontend folder and run:
 
-```
-cd frontend && yarn start
-```
+  ```
+  cd frontend && yarn start
+  ```
 
 ##### Build Version
 
 - Enter in frontend folder and run:
 
-```
-cd frontend && yarn build
-```
+  ```
+  cd frontend && yarn build
+  ```
 
 ### Built With
 
