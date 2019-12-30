@@ -1,6 +1,7 @@
 # PRONTOMED
 
 System for medical records with patient records, appointment schedules and medical notes. Project developed in Node.js and React.
+![Screenshot](https://raw.githubusercontent.com/zeavila/prontuario/master/frontend/public/Captura%20de%20Tela_%C3%81rea%20de%20Sele%C3%A7%C3%A3o_20191230001442.png)
 
 ## Table Of Contents
 
