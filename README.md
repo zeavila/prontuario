@@ -37,23 +37,25 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installation
 
-- Clone the repository and check out the master branch: git clone https://github.com/zeavila/prontuario.git
+Clone the repository and check out the master branch:
 
-#### Database
+```
+git clone https://github.com/zeavila/prontuario.git
+```
 
-- Run 'script_mysql.sql' (founded in docs/script folder) to create database
+- '''Database'''
 
-#### Backend
+Run 'script_mysql.sql' (founded in docs/script folder) to create database
 
-- Enter in backend folder and install:
+- '''Backend'''
+  - Enter in backend folder and install:
 
 ```
 cd backend && npm i
 ```
 
-#### Frontend
-
-- Enter in frontend folder and install:
+- '''Frontend'''
+  - Enter in frontend folder and install:
 
 ```
 cd frontend && npm i
@@ -107,7 +109,7 @@ To test Backend's services, use Postman or view API documentation in https://doc
 
 ### Author
 
-- **Alberto Ávila** - _Initial work_ - [zeavila](https://github.com/zeavila)
+- **Alberto Ávila** - [zeavila](https://github.com/zeavila)
 
 ### License
 
